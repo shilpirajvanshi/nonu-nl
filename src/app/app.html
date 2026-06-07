@@ -1,11 +1,11 @@
 <!-- ===== ANNOUNCEMENT BAR ===== -->
 <div class="announcement-bar">
   <div class="container">
-    <span>🚚 Gratis bezorging bij bestellingen vanaf €25</span>
+    <span>🚚 Free delivery on orders over €25</span>
     <span class="sep">|</span>
-    <span>📞 Apotheek bereikbaar: ma–vr 08:00–18:00</span>
+    <span>📞 Pharmacy available: Mon–Fri 08:00–18:00</span>
     <span class="sep">|</span>
-    <span>⭐ Meer dan 500.000 tevreden klanten</span>
+    <span>⭐ Over 500,000 satisfied customers</span>
   </div>
 </div>
 
@@ -14,9 +14,9 @@
   <div class="container header-inner">
 
     <a class="logo" href="#">
-      <div class="logo-icon">N</div>
+      <div class="logo-icon">M</div>
       <div class="logo-text">
-        <span class="logo-name">nonu</span>
+        <span class="logo-name">mypharmacy</span>
         <span class="logo-domain">.nl</span>
       </div>
     </a>
@@ -25,21 +25,21 @@
       <span class="search-icon">🔍</span>
       <input
         type="text"
-        placeholder="Zoek medicijnen, vitaminen, verzorging..."
+        placeholder="Search medicines, vitamins, skincare..."
         [value]="searchQuery()"
         (input)="searchQuery.set($any($event.target).value)"
       />
-      <button class="search-btn btn btn-primary">Zoeken</button>
+      <button class="search-btn btn btn-primary">Search</button>
     </div>
 
     <div class="header-actions">
       <button class="action-btn">
         <span class="action-icon">👤</span>
-        <span class="action-label">Inloggen</span>
+        <span class="action-label">Log in</span>
       </button>
       <button class="action-btn" (click)="toggleCart()">
         <span class="action-icon">🛒</span>
-        <span class="action-label">Winkelwagen</span>
+        <span class="action-label">Cart</span>
         @if (cartCount() > 0) {
           <span class="cart-badge">{{ cartCount() }}</span>
         }
@@ -67,15 +67,15 @@
   <div class="cart-overlay" (click)="toggleCart()"></div>
   <aside class="cart-sidebar">
     <div class="cart-header">
-      <h3>Winkelwagen ({{ cartCount() }})</h3>
+      <h3>Cart ({{ cartCount() }})</h3>
       <button class="cart-close" (click)="toggleCart()">✕</button>
     </div>
     <div class="cart-body">
       @if (cartItems().length === 0) {
         <div class="cart-empty">
           <span>🛒</span>
-          <p>Je winkelwagen is leeg</p>
-          <button class="btn btn-primary" (click)="toggleCart()">Verder winkelen</button>
+          <p>Your cart is empty</p>
+          <button class="btn btn-primary" (click)="toggleCart()">Continue shopping</button>
         </div>
       } @else {
         @for (item of cartItems(); track $index; let i = $index) {
@@ -90,10 +90,10 @@
         }
         <div class="cart-footer">
           <div class="cart-total">
-            <span>Totaal</span>
+            <span>Total</span>
             <span>€{{ cartTotal().toFixed(2) }}</span>
           </div>
-          <button class="btn btn-primary" style="width:100%">Afrekenen</button>
+          <button class="btn btn-primary" style="width:100%">Checkout</button>
         </div>
       }
     </div>
@@ -116,25 +116,25 @@
             <button class="btn btn-ghost">{{ b.ctaSecondary }}</button>
           </div>
           <div class="hero-stats">
-            <div class="stat"><strong>500K+</strong><span>Klanten</span></div>
+            <div class="stat"><strong>500K+</strong><span>Customers</span></div>
             <div class="stat-divider"></div>
-            <div class="stat"><strong>5.000+</strong><span>Producten</span></div>
+            <div class="stat"><strong>5,000+</strong><span>Products</span></div>
             <div class="stat-divider"></div>
-            <div class="stat"><strong>200+</strong><span>Apotheken</span></div>
+            <div class="stat"><strong>200+</strong><span>Pharmacies</span></div>
           </div>
         </div>
         <div class="hero-visual">
           <div class="hero-card">
             <div class="hero-emoji">{{ b.image }}</div>
             <div class="hero-floating-tags">
-              <span>💊 Medicijnen</span>
-              <span>🧴 Verzorging</span>
-              <span>🌿 Vitaminen</span>
+              <span>💊 Medicines</span>
+              <span>🧴 Skincare</span>
+              <span>🌿 Vitamins</span>
             </div>
           </div>
-          <div class="hero-pill pill-1">✅ Snel geleverd</div>
-          <div class="hero-pill pill-2">🔒 Veilig betalen</div>
-          <div class="hero-pill pill-3">💬 Apothekers advies</div>
+          <div class="hero-pill pill-1">✅ Fast delivery</div>
+          <div class="hero-pill pill-2">🔒 Secure payment</div>
+          <div class="hero-pill pill-3">💬 Pharmacist advice</div>
         </div>
       </div>
       <div class="hero-wave">
@@ -166,10 +166,10 @@
     <div class="container">
       <div class="section-header">
         <div>
-          <h2 class="section-title">Productcategorieën</h2>
-          <p class="section-subtitle">Alles voor jouw gezondheid op één plek</p>
+          <h2 class="section-title">Product Categories</h2>
+          <p class="section-subtitle">Everything for your health in one place</p>
         </div>
-        <a href="#" class="view-all">Alle categorieën →</a>
+        <a href="#" class="view-all">All categories →</a>
       </div>
       <div class="categories-grid">
         @for (cat of categories(); track cat.id) {
@@ -189,10 +189,10 @@
     <div class="container">
       <div class="section-header">
         <div>
-          <h2 class="section-title">Populaire producten</h2>
-          <p class="section-subtitle">Onze bestverkochte producten van dit moment</p>
+          <h2 class="section-title">Popular Products</h2>
+          <p class="section-subtitle">Our best-selling products right now</p>
         </div>
-        <a href="#" class="view-all">Alle producten →</a>
+        <a href="#" class="view-all">All products →</a>
       </div>
       @if (loading()) {
         <div class="products-grid">
@@ -231,7 +231,7 @@
                   }
                 </div>
                 <button class="btn btn-primary add-to-cart" (click)="addToCart(product)">
-                  🛒 In winkelwagen
+                  🛒 Add to cart
                 </button>
               </div>
             </div>
@@ -245,21 +245,21 @@
   <section class="banner-cta">
     <div class="container banner-cta-inner">
       <div class="banner-cta-content">
-        <span class="badge badge-green" style="margin-bottom:12px">Apotheek service</span>
-        <h2>Herhaalrecept makkelijk regelen</h2>
-        <p>Upload je recept en wij zorgen voor de rest. Jouw medicatie klaar voor afhalen of bezorging.</p>
+        <span class="badge badge-green" style="margin-bottom:12px">Pharmacy service</span>
+        <h2>Repeat prescriptions made easy</h2>
+        <p>Upload your prescription and we'll take care of the rest. Your medication ready for collection or home delivery.</p>
         <div class="banner-cta-actions">
-          <button class="btn btn-primary">Recept uploaden</button>
-          <button class="btn btn-outline">Meer informatie</button>
+          <button class="btn btn-primary">Upload prescription</button>
+          <button class="btn btn-outline">More information</button>
         </div>
       </div>
       <div class="banner-cta-visual">
         <div class="cta-steps">
-          <div class="cta-step">📋<p>Recept uploaden</p></div>
+          <div class="cta-step">📋<p>Upload prescription</p></div>
           <div class="cta-arrow">→</div>
-          <div class="cta-step">✅<p>Verificatie</p></div>
+          <div class="cta-step">✅<p>Verification</p></div>
           <div class="cta-arrow">→</div>
-          <div class="cta-step">🚚<p>Bezorging</p></div>
+          <div class="cta-step">🚚<p>Delivery</p></div>
         </div>
       </div>
     </div>
@@ -270,10 +270,10 @@
     <div class="container">
       <div class="section-header">
         <div>
-          <h2 class="section-title">Gezondheidsadvies</h2>
-          <p class="section-subtitle">Artikelen en tips van onze apothekers</p>
+          <h2 class="section-title">Health Advice</h2>
+          <p class="section-subtitle">Articles and tips from our pharmacists</p>
         </div>
-        <a href="#" class="view-all">Alle artikelen →</a>
+        <a href="#" class="view-all">All articles →</a>
       </div>
       <div class="health-grid">
         @for (tip of healthTips(); track tip.id) {
@@ -282,11 +282,11 @@
             <div class="health-content">
               <div class="health-meta">
                 <span class="badge badge-green">{{ tip.category }}</span>
-                <span class="read-time">⏱ {{ tip.readTime }} lezen</span>
+                <span class="read-time">⏱ {{ tip.readTime }} read</span>
               </div>
               <h3>{{ tip.title }}</h3>
               <p>{{ tip.summary }}</p>
-              <a href="#" class="read-more">Lees meer →</a>
+              <a href="#" class="read-more">Read more →</a>
             </div>
           </article>
         }
@@ -299,13 +299,13 @@
     <div class="container">
       <div class="section-header">
         <div>
-          <h2 class="section-title">Vind een nonu apotheek</h2>
-          <p class="section-subtitle">200+ apotheken door heel Nederland</p>
+          <h2 class="section-title">Find a mypharmacy location</h2>
+          <p class="section-subtitle">200+ pharmacies across the Netherlands</p>
         </div>
       </div>
       <div class="pharmacy-search">
-        <input type="text" placeholder="Voer je postcode of stad in..." class="pharmacy-input" />
-        <button class="btn btn-primary">🔍 Zoeken</button>
+        <input type="text" placeholder="Enter your postcode or city..." class="pharmacy-input" />
+        <button class="btn btn-primary">🔍 Search</button>
       </div>
       <div class="pharmacy-grid">
         @for (pharmacy of pharmacies(); track pharmacy.name) {
@@ -316,7 +316,7 @@
                 <p>{{ pharmacy.address }}, {{ pharmacy.city }}</p>
               </div>
               <span class="open-badge" [class.closed]="!pharmacy.open">
-                {{ pharmacy.open ? '● Open' : '● Gesloten' }}
+                {{ pharmacy.open ? '● Open' : '● Closed' }}
               </span>
             </div>
             <div class="pharmacy-details">
@@ -324,8 +324,8 @@
               <p>📞 {{ pharmacy.phone }}</p>
             </div>
             <div class="pharmacy-actions">
-              <button class="btn btn-outline" style="flex:1">Routebeschrijving</button>
-              <button class="btn btn-primary" style="flex:1">Meer info</button>
+              <button class="btn btn-outline" style="flex:1">Get directions</button>
+              <button class="btn btn-primary" style="flex:1">More info</button>
             </div>
           </div>
         }
@@ -337,8 +337,8 @@
   <section class="section testimonials-section">
     <div class="container">
       <div class="section-header" style="text-align:center; display:block">
-        <h2 class="section-title">Wat onze klanten zeggen</h2>
-        <p class="section-subtitle">Meer dan 500.000 tevreden klanten gingen je voor</p>
+        <h2 class="section-title">What our customers say</h2>
+        <p class="section-subtitle">Over 500,000 satisfied customers have gone before you</p>
       </div>
       <div class="testimonials-wrapper">
         @for (t of testimonials(); track t.id; let i = $index) {
@@ -367,25 +367,25 @@
   <section class="newsletter-section">
     <div class="container newsletter-inner">
       <div class="newsletter-content">
-        <h2>Blijf op de hoogte</h2>
-        <p>Ontvang gezondheidsadviezen, productnieuws en exclusieve aanbiedingen in je inbox.</p>
+        <h2>Stay up to date</h2>
+        <p>Receive the latest health advice, product news and exclusive offers in your inbox.</p>
       </div>
       @if (!newsletterSuccess()) {
         <form class="newsletter-form" (submit)="submitNewsletter(); $event.preventDefault()">
           <input
             type="email"
-            placeholder="Jouw e-mailadres"
+            placeholder="Your email address"
             [value]="newsletterEmail()"
             (input)="newsletterEmail.set($any($event.target).value)"
             required
           />
-          <button type="submit" class="btn btn-orange">Aanmelden</button>
+          <button type="submit" class="btn btn-orange">Subscribe</button>
         </form>
-        <p class="newsletter-disclaimer">🔒 We respecteren je privacy. Geen spam, altijd uitschrijfbaar.</p>
+        <p class="newsletter-disclaimer">🔒 We respect your privacy. No spam, unsubscribe anytime.</p>
       } @else {
         <div class="newsletter-success">
           <span>✅</span>
-          <p>Bedankt voor je aanmelding! Je ontvangt binnenkort onze nieuwsbrief.</p>
+          <p>Thanks for subscribing! You'll receive our newsletter soon.</p>
         </div>
       }
     </div>
@@ -399,13 +399,13 @@
 
     <div class="footer-brand">
       <a class="logo" href="#">
-        <div class="logo-icon">N</div>
+        <div class="logo-icon">M</div>
         <div class="logo-text">
-          <span class="logo-name">nonu</span>
+          <span class="logo-name">mypharmacy</span>
           <span class="logo-domain">.nl</span>
         </div>
       </a>
-      <p>Jouw betrouwbare online apotheek voor medicijnen, verzorging en gezondheidsproducten. Altijd dichtbij, altijd beschikbaar.</p>
+      <p>Your trusted online pharmacy for medicines, personal care and health products. Always nearby, always available.</p>
       <div class="social-links">
         <a href="#" class="social-link">f</a>
         <a href="#" class="social-link">in</a>
@@ -415,37 +415,37 @@
     </div>
 
     <div class="footer-links">
-      <h5>Producten</h5>
+      <h5>Products</h5>
       <ul>
-        <li><a href="#">Medicijnen</a></li>
-        <li><a href="#">Huidverzorging</a></li>
-        <li><a href="#">Vitaminen &amp; Supplementen</a></li>
-        <li><a href="#">Baby &amp; Kind</a></li>
-        <li><a href="#">Sport &amp; Voeding</a></li>
-        <li><a href="#">Aanbiedingen</a></li>
+        <li><a href="#">Medicines</a></li>
+        <li><a href="#">Skincare</a></li>
+        <li><a href="#">Vitamins &amp; Supplements</a></li>
+        <li><a href="#">Baby &amp; Child</a></li>
+        <li><a href="#">Sport &amp; Nutrition</a></li>
+        <li><a href="#">Deals</a></li>
       </ul>
     </div>
 
     <div class="footer-links">
       <h5>Service</h5>
       <ul>
-        <li><a href="#">Vind een apotheek</a></li>
-        <li><a href="#">Herhaalrecept</a></li>
-        <li><a href="#">Apothekers advies</a></li>
-        <li><a href="#">Bezorging &amp; Retour</a></li>
-        <li><a href="#">Klantenservice</a></li>
-        <li><a href="#">Loyaliteitsprogramma</a></li>
+        <li><a href="#">Find a pharmacy</a></li>
+        <li><a href="#">Repeat prescription</a></li>
+        <li><a href="#">Pharmacist advice</a></li>
+        <li><a href="#">Delivery &amp; Returns</a></li>
+        <li><a href="#">Customer service</a></li>
+        <li><a href="#">Loyalty programme</a></li>
       </ul>
     </div>
 
     <div class="footer-links">
-      <h5>Over nonu</h5>
+      <h5>About us</h5>
       <ul>
-        <li><a href="#">Over ons</a></li>
-        <li><a href="#">Werken bij nonu</a></li>
-        <li><a href="#">Nieuws &amp; Blog</a></li>
-        <li><a href="#">Kwaliteit &amp; Veiligheid</a></li>
-        <li><a href="#">Pers</a></li>
+        <li><a href="#">About mypharmacy</a></li>
+        <li><a href="#">Work with us</a></li>
+        <li><a href="#">News &amp; Blog</a></li>
+        <li><a href="#">Quality &amp; Safety</a></li>
+        <li><a href="#">Press</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
     </div>
@@ -453,19 +453,19 @@
     <div class="footer-contact">
       <h5>Contact</h5>
       <ul>
-        <li>📞 0800-1234567 (gratis)</li>
-        <li>📧 info&#64;nonu.nl</li>
-        <li>🕐 Ma–Vr 08:00–18:00</li>
-        <li>🏢 Apothekerslaan 1, Amsterdam</li>
+        <li>📞 0800-1234567 (free)</li>
+        <li>📧 info&#64;mypharmacy.nl</li>
+        <li>🕐 Mon–Fri 08:00–18:00</li>
+        <li>🏢 Pharmacy Lane 1, Amsterdam</li>
       </ul>
       <div class="app-badges">
         <div class="app-badge">
           <span>🍎</span>
-          <div><small>Download in de</small><strong>App Store</strong></div>
+          <div><small>Download on the</small><strong>App Store</strong></div>
         </div>
         <div class="app-badge">
           <span>▶</span>
-          <div><small>Verkrijgbaar via</small><strong>Google Play</strong></div>
+          <div><small>Get it on</small><strong>Google Play</strong></div>
         </div>
       </div>
     </div>
@@ -474,11 +474,11 @@
 
   <div class="footer-bottom">
     <div class="container footer-bottom-inner">
-      <p>&copy; 2024 nonu.nl – Alle rechten voorbehouden</p>
+      <p>&copy; 2024 mypharmacy.nl – All rights reserved</p>
       <div class="footer-legal">
-        <a href="#">Privacybeleid</a>
-        <a href="#">Cookiebeleid</a>
-        <a href="#">Algemene voorwaarden</a>
+        <a href="#">Privacy policy</a>
+        <a href="#">Cookie policy</a>
+        <a href="#">Terms &amp; conditions</a>
         <a href="#">Sitemap</a>
       </div>
       <div class="payment-icons">

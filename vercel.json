@@ -1,0 +1,7 @@
+{
+  "buildCommand": "npx ng build",
+  "outputDirectory": "dist/nonu-nl",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

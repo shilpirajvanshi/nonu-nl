@@ -1,3 +1,56 @@
+<!-- ===== TOP BANNER CAROUSEL ===== -->
+@if (bannerSlides().length > 0) {
+  <section class="top-banner">
+    <!-- Slides -->
+    <div class="slides-wrapper">
+      @for (slide of bannerSlides(); track slide.id; let i = $index) {
+        <div
+          class="slide"
+          [class.active]="currentSlide() === i"
+          [style.background]="'linear-gradient(135deg, ' + slide.bgFrom + ' 0%, ' + slide.bgTo + ' 100%)'"
+        >
+          <div class="container slide-inner">
+            <div class="slide-content">
+              <span class="slide-tag">{{ slide.tag }}</span>
+              <h2 class="slide-title">{{ slide.title }}</h2>
+              <p class="slide-desc">{{ slide.description }}</p>
+              <a [routerLink]="slide.ctaLink" class="slide-cta" [style.background]="slide.accent" [style.color]="slide.bgFrom">
+                {{ slide.cta }} →
+              </a>
+            </div>
+            <div class="slide-visual">
+              <div class="slide-emoji-ring" [style.border-color]="slide.accent + '40'">
+                <div class="slide-emoji-inner" [style.background]="slide.accent + '20'">
+                  <span class="slide-emoji">{{ slide.emoji }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Prev / Next arrows -->
+    <button class="slide-arrow slide-arrow--prev" (click)="prevSlide()" aria-label="Previous slide">&#8249;</button>
+    <button class="slide-arrow slide-arrow--next" (click)="nextSlide()" aria-label="Next slide">&#8250;</button>
+
+    <!-- Dot navigation -->
+    <div class="slide-dots">
+      @for (slide of bannerSlides(); track slide.id; let i = $index) {
+        <button
+          class="slide-dot"
+          [class.active]="currentSlide() === i"
+          (click)="goToSlide(i)"
+          [attr.aria-label]="'Go to slide ' + (i + 1)"
+        ></button>
+      }
+    </div>
+
+    <!-- Slide counter -->
+    <div class="slide-counter">{{ currentSlide() + 1 }} / {{ bannerSlides().length }}</div>
+  </section>
+}
+
 <!-- Hero -->
 @if (banner(); as b) {
   <section class="hero">

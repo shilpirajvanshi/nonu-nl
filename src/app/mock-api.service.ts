@@ -9,9 +9,74 @@ export interface HealthTip { id: number; title: string; summary: string; categor
 export interface Pharmacy { name: string; address: string; city: string; hours: string; phone: string; open: boolean; }
 export interface Testimonial { id: number; name: string; location: string; text: string; rating: number; avatar: string; }
 export interface PromoCard { title: string; description: string; cta: string; color: string; icon: string; }
+export interface TopBannerSlide {
+  id: number;
+  tag: string;
+  title: string;
+  description: string;
+  cta: string;
+  ctaLink: string;
+  emoji: string;
+  bgFrom: string;
+  bgTo: string;
+  accent: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class MockApiService {
+
+  getTopBannerSlides(): Observable<TopBannerSlide[]> {
+    return of([
+      {
+        id: 1,
+        tag: '🔥 Limited time offer',
+        title: 'Up to 40% off\nVitamins & Supplements',
+        description: 'Stock up on your daily essentials. Free delivery on orders over €25.',
+        cta: 'Shop the sale',
+        ctaLink: '/products',
+        emoji: '🌿',
+        bgFrom: '#00843D',
+        bgTo: '#005a2a',
+        accent: '#FFD700',
+      },
+      {
+        id: 2,
+        tag: '✨ New arrivals',
+        title: 'Premium Skincare\nNow In Stock',
+        description: 'Discover our curated range of dermatologist-recommended skincare products.',
+        cta: 'Explore skincare',
+        ctaLink: '/products',
+        emoji: '🧴',
+        bgFrom: '#1a6fa8',
+        bgTo: '#0d4d7a',
+        accent: '#FFB347',
+      },
+      {
+        id: 3,
+        tag: '💊 Pharmacy service',
+        title: 'Repeat Prescriptions\nDelivered to Your Door',
+        description: 'Upload your prescription in seconds. We handle the rest — fast and securely.',
+        cta: 'Upload prescription',
+        ctaLink: '/',
+        emoji: '📋',
+        bgFrom: '#7B2D8B',
+        bgTo: '#521d5e',
+        accent: '#80FFDB',
+      },
+      {
+        id: 4,
+        tag: '👶 Baby essentials',
+        title: 'Everything Your\nBaby Needs',
+        description: 'Trusted brands for newborns to toddlers. Gentle, safe and affordable.',
+        cta: 'Shop baby range',
+        ctaLink: '/products',
+        emoji: '👶',
+        bgFrom: '#D4A017',
+        bgTo: '#a37810',
+        accent: '#FFFFFF',
+      },
+    ]).pipe(delay(120));
+  }
 
   getNavItems(): Observable<NavItem[]> {
     return of([

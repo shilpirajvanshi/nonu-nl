@@ -1,0 +1,104 @@
+<section class="page-hero ph-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <nav class="page-breadcrumb"><a href="/">Home</a><span>›</span><span>Pharmacy</span></nav>
+      <h1 class="page-hero-title">Find Your Local Pharmacy</h1>
+      <p class="page-hero-sub">Over 200 mypharmacy locations across the Netherlands. Expert pharmacists, fast dispensing and a full range of health services.</p>
+      <div class="page-hero-actions">
+        <button class="btn btn-white">🔍 Find nearest pharmacy</button>
+        <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)">📋 Upload prescription</button>
+      </div>
+    </div>
+    <div class="page-hero-stats">
+      <div class="page-stat"><strong>200+</strong><span>Locations</span></div>
+      <div class="page-stat"><strong>500+</strong><span>Pharmacists</span></div>
+      <div class="page-stat"><strong>24/7</strong><span>Online support</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Search -->
+<section class="ph-search-bar">
+  <div class="container">
+    <div class="ph-search-wrap">
+      <span>📍</span>
+      <input type="text" placeholder="Search by city, postcode or pharmacy name..."
+        [value]="searchCity()" (input)="searchCity.set($any($event.target).value)" />
+      <button class="btn btn-primary">Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="page-section page-section--white">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">Our Pharmacy Services</h2>
+        <p class="section-subtitle">Everything you need for your health, all in one place</p>
+      </div>
+    </div>
+    <div class="grid-3">
+      @for (svc of services(); track svc.title) {
+        <div class="ph-service-card">
+          <div class="ph-service-icon">{{ svc.icon }}</div>
+          <h3>{{ svc.title }}</h3>
+          <p>{{ svc.description }}</p>
+          <button class="btn btn-outline" style="font-size:13px;padding:8px 18px">{{ svc.cta }} →</button>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Pharmacy Finder -->
+<section class="page-section page-section--gray">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">All Pharmacies</h2>
+        <p class="section-subtitle">{{ filtered().length }} location{{ filtered().length !== 1 ? 's' : '' }} found</p>
+      </div>
+    </div>
+    @if (filtered().length === 0) {
+      <div class="ph-no-results">🔍 <p>No pharmacies found for "{{ searchCity() }}"</p></div>
+    } @else {
+      <div class="grid-3">
+        @for (p of filtered(); track p.name) {
+          <div class="ph-location-card">
+            <div class="ph-location-header">
+              <div class="ph-location-icon">🏥</div>
+              <span class="ph-open-tag" [class.closed]="!p.open">{{ p.open ? '● Open' : '● Closed' }}</span>
+            </div>
+            <h4>{{ p.name }}</h4>
+            <p class="ph-address">📍 {{ p.address }}, {{ p.city }}</p>
+            <p class="ph-hours">🕐 {{ p.hours }}</p>
+            <p class="ph-phone">📞 {{ p.phone }}</p>
+            <div class="ph-location-actions">
+              <button class="btn btn-outline" style="flex:1;font-size:13px">Directions</button>
+              <button class="btn btn-primary" style="flex:1;font-size:13px">More info</button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Info Banner -->
+<section class="ph-info-banner">
+  <div class="container ph-info-grid">
+    <div class="ph-info-item">
+      <span>📞</span>
+      <div><strong>Phone advice</strong><p>Call us Mon–Fri 08:00–18:00 for free pharmacist advice.</p></div>
+    </div>
+    <div class="ph-info-item">
+      <span>💬</span>
+      <div><strong>Live chat</strong><p>Chat with a pharmacist any time via the website or app.</p></div>
+    </div>
+    <div class="ph-info-item">
+      <span>🚚</span>
+      <div><strong>Home delivery</strong><p>Get your medication delivered free on orders over €25.</p></div>
+    </div>
+  </div>
+</section>

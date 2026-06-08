@@ -1,0 +1,110 @@
+<section class="page-hero bb-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <nav class="page-breadcrumb"><a href="/">Home</a><span>›</span><span>Baby &amp; Child</span></nav>
+      <h1 class="page-hero-title">Everything for Your Little One</h1>
+      <p class="page-hero-sub">Trusted, gentle products for babies and children of all ages. From newborn essentials to toddler health — we've got you covered.</p>
+      <div class="page-hero-actions">
+        <button class="btn btn-white">👶 Shop baby range</button>
+        <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)">💬 Parenting advice</button>
+      </div>
+    </div>
+    <div class="page-hero-stats">
+      <div class="page-stat"><strong>600+</strong><span>Products</span></div>
+      <div class="page-stat"><strong>Gentle</strong><span>&amp; Safe</span></div>
+      <div class="page-stat"><strong>Expert</strong><span>Tested</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Age Groups -->
+<section class="page-section page-section--white">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">Shop by Age</h2>
+        <p class="section-subtitle">Find the right products for your child's stage</p>
+      </div>
+    </div>
+    <div class="bb-age-grid">
+      @for (ag of ageGroups(); track ag.id) {
+        <button class="bb-age-card" [class.active]="selectedAge()===ag.id"
+          [style.background]="ag.color" (click)="selectedAge.set(ag.id)">
+          <span class="bb-age-icon">{{ ag.icon }}</span>
+          <strong>{{ ag.label }}</strong>
+          <span>{{ ag.age }}</span>
+        </button>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="page-section page-section--gray">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">Baby Categories</h2>
+        <p class="section-subtitle">Everything you need, organised for you</p>
+      </div>
+    </div>
+    <div class="grid-3">
+      @for (cat of babyCategories(); track cat.name) {
+        <div class="bb-cat-card">
+          <span class="bb-cat-icon">{{ cat.icon }}</span>
+          <div>
+            <h4>{{ cat.name }}</h4>
+            <p>{{ cat.description }}</p>
+          </div>
+          <button class="btn btn-outline" style="font-size:13px;padding:8px 16px">Shop →</button>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="page-section page-section--white">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">Baby Bestsellers</h2>
+        <p class="section-subtitle">Parent-approved products for every stage</p>
+      </div>
+      <a href="#" class="page-view-all">View all →</a>
+    </div>
+    <div class="grid-4">
+      @for (p of products(); track p.id; let i = $index) {
+        <div class="pg-product-card" [style.animation-delay]="(i*50)+'ms'">
+          @if (p.badge) { <span class="pg-badge badge" [class]="'badge-'+p.badgeType">{{ p.badge }}</span> }
+          <div class="pg-product-img">{{ p.icon }}</div>
+          <div class="pg-product-info">
+            <p class="pg-product-brand">{{ p.brand }}</p>
+            <h3 class="pg-product-name">{{ p.name }}</h3>
+            <p class="pg-product-unit">{{ p.unit }}</p>
+            <div class="pg-stars">{{ stars(p.rating) }} <small style="color:var(--gray-600)">({{ p.reviews }})</small></div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:12px">
+              <span class="pg-product-price">€{{ p.price.toFixed(2) }}</span>
+              @if (p.originalPrice) { <span class="pg-product-orig">€{{ p.originalPrice.toFixed(2) }}</span> }
+            </div>
+            <button class="btn add-btn" [class.btn-success]="addedId()===p.id" [class.btn-primary]="addedId()!==p.id" (click)="addToCart(p)">
+              {{ addedId()===p.id ? '✅ Added!' : '🛒 Add to cart' }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Safety Tips -->
+<section class="bb-safety-section">
+  <div class="container">
+    <h2 class="section-title" style="text-align:center;margin-bottom:32px">Baby Safety Tips</h2>
+    <div class="grid-3">
+      <div class="bb-tip-card"><span>🌡️</span><h4>Check temperatures</h4><p>Always test bath water and baby food temperature before use. Aim for 37°C for baths.</p></div>
+      <div class="bb-tip-card"><span>😴</span><h4>Safe sleep</h4><p>Always place your baby on their back to sleep, on a firm mattress, in their own space.</p></div>
+      <div class="bb-tip-card"><span>🧴</span><h4>Gentle products</h4><p>Choose fragrance-free, hypoallergenic products for newborn skin. Patch test new products first.</p></div>
+    </div>
+  </div>
+</section>

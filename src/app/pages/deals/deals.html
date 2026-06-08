@@ -1,0 +1,121 @@
+<section class="page-hero dl-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <nav class="page-breadcrumb"><a href="/">Home</a><span>›</span><span>Deals</span></nav>
+      <h1 class="page-hero-title">Today's Best Deals</h1>
+      <p class="page-hero-sub">Exclusive discounts on medicines, vitamins, skincare and more. New offers added daily — don't miss out!</p>
+      <div class="page-hero-actions">
+        <button class="btn btn-white">🏷️ All deals</button>
+        <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)">⭐ Loyalty rewards</button>
+      </div>
+    </div>
+    <div class="page-hero-stats">
+      <div class="page-stat"><strong>50+</strong><span>Active deals</span></div>
+      <div class="page-stat"><strong>Up to 40%</strong><span>Off today</span></div>
+      <div class="page-stat"><strong>Daily</strong><span>New offers</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Flash Deals -->
+<section class="page-section page-section--gray">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">⚡ Flash Deals</h2>
+        <p class="section-subtitle">Limited time — grab them before they're gone!</p>
+      </div>
+    </div>
+    <div class="grid-3">
+      @for (deal of deals(); track deal.id) {
+        <div class="dl-deal-card">
+          <div class="dl-deal-top">
+            <span class="dl-deal-badge">{{ deal.badge }}</span>
+            <span class="dl-discount-pill">-{{ deal.discount }}%</span>
+          </div>
+          <div class="dl-deal-icon">{{ deal.icon }}</div>
+          <div class="dl-deal-info">
+            <p class="dl-deal-brand">{{ deal.brand }}</p>
+            <h3 class="dl-deal-title">{{ deal.title }}</h3>
+            <div class="dl-deal-prices">
+              <span class="dl-price-now">€{{ deal.salePrice.toFixed(2) }}</span>
+              <span class="dl-price-was">€{{ deal.originalPrice.toFixed(2) }}</span>
+              <span class="dl-saving">Save €{{ saving(deal) }}</span>
+            </div>
+            <div class="dl-timer">
+              <span class="dl-timer-label">⏱ Ends in:</span>
+              <div class="dl-timer-blocks">
+                <div class="dl-timer-block"><strong>{{ timers[deal.id]?.h }}</strong><small>hrs</small></div>
+                <span>:</span>
+                <div class="dl-timer-block"><strong>{{ timers[deal.id]?.m }}</strong><small>min</small></div>
+                <span>:</span>
+                <div class="dl-timer-block"><strong>{{ timers[deal.id]?.s }}</strong><small>sec</small></div>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:14px" (click)="cart.add({id:deal.id,name:deal.title,brand:deal.brand,price:deal.salePrice,unit:'',rating:5,reviews:0,icon:deal.icon})">
+              🛒 Add to cart
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Bundle Deals -->
+<section class="page-section page-section--white">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">🎁 Bundle &amp; Save</h2>
+        <p class="section-subtitle">Get more for less with our curated bundles</p>
+      </div>
+    </div>
+    <div class="grid-3">
+      @for (bundle of bundles(); track bundle.title) {
+        <div class="dl-bundle-card">
+          <div class="dl-bundle-icon">{{ bundle.icon }}</div>
+          <h3>{{ bundle.title }}</h3>
+          <ul class="dl-bundle-items">
+            @for (item of bundle.items; track item) { <li>✓ {{ item }}</li> }
+          </ul>
+          <div class="dl-bundle-price">
+            <span class="dl-price-now">€{{ bundle.price.toFixed(2) }}</span>
+            <span class="dl-price-was">€{{ bundle.originalPrice.toFixed(2) }}</span>
+          </div>
+          <p class="dl-bundle-saving">You save €{{ (bundle.originalPrice - bundle.price).toFixed(2) }}</p>
+          <button class="btn btn-primary" style="width:100%;justify-content:center">Add bundle to cart</button>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Loyalty Banner -->
+<section class="dl-loyalty-banner">
+  <div class="container dl-loyalty-inner">
+    <div>
+      <h2>⭐ Join our Loyalty Programme</h2>
+      <p>Earn 1 point for every €1 spent. Redeem points for discounts, free products and exclusive member deals.</p>
+    </div>
+    <div class="dl-loyalty-actions">
+      <button class="btn btn-white">Join for free</button>
+      <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)">Learn more</button>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="dl-newsletter">
+  <div class="container dl-newsletter-inner">
+    <div><h3>🔔 Never miss a deal</h3><p>Subscribe to get flash deals straight to your inbox before they sell out.</p></div>
+    @if (!subscribed()) {
+      <form class="dl-newsletter-form" (submit)="subscribe(); $event.preventDefault()">
+        <input type="email" placeholder="Your email address" [value]="email()" (input)="email.set($any($event.target).value)" required />
+        <button type="submit" class="btn btn-orange">Subscribe</button>
+      </form>
+    } @else {
+      <div class="dl-subscribed">✅ <span>You're in! Check your inbox for today's deals.</span></div>
+    }
+  </div>
+</section>

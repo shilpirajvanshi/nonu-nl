@@ -1,0 +1,92 @@
+<section class="page-hero hl-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <nav class="page-breadcrumb"><a href="/">Home</a><span>›</span><span>Health</span></nav>
+      <h1 class="page-hero-title">Health Advice & Information</h1>
+      <p class="page-hero-sub">Evidence-based health articles, tools and tips written and reviewed by our qualified pharmacists and healthcare professionals.</p>
+      <div class="page-hero-actions">
+        <button class="btn btn-white">📖 Browse all articles</button>
+        <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)">💬 Ask a pharmacist</button>
+      </div>
+    </div>
+    <div class="page-hero-stats">
+      <div class="page-stat"><strong>200+</strong><span>Articles</span></div>
+      <div class="page-stat"><strong>12</strong><span>Topics</span></div>
+      <div class="page-stat"><strong>Expert</strong><span>Reviewed</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Health Categories -->
+<section class="page-section page-section--white">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">Browse by Topic</h2>
+        <p class="section-subtitle">Select a category to filter articles</p>
+      </div>
+      @if (activeCategory()) {
+        <button class="page-view-all" (click)="setCategory(activeCategory()!)">Clear filter ✕</button>
+      }
+    </div>
+    <div class="hl-categories-grid">
+      @for (cat of categories(); track cat.id) {
+        <button class="hl-cat-card" [class.active]="activeCategory() === cat.id"
+          [style.background]="cat.color" (click)="setCategory(cat.id)">
+          <span class="hl-cat-icon">{{ cat.icon }}</span>
+          <h4>{{ cat.title }}</h4>
+          <p>{{ cat.count }}</p>
+        </button>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Articles -->
+<section class="page-section page-section--gray">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">{{ activeCategory() ? (categories()[activeCategory()!-1]?.title ?? '') + ' Articles' : 'Featured Articles' }}</h2>
+        <p class="section-subtitle">{{ filtered().length }} article{{ filtered().length !== 1 ? 's' : '' }}</p>
+      </div>
+    </div>
+    @if (filtered().length === 0) {
+      <div class="hl-no-articles">😔 <p>No articles in this category yet. Check back soon!</p></div>
+    } @else {
+      <div class="grid-3">
+        @for (a of filtered(); track a.id) {
+          <article class="hl-article-card">
+            <div class="hl-article-icon">{{ a.icon }}</div>
+            <div class="hl-article-body">
+              <div class="hl-article-meta">
+                <span class="badge badge-green">{{ a.category }}</span>
+                <span class="hl-read-time">⏱ {{ a.readTime }} read</span>
+              </div>
+              <h3>{{ a.title }}</h3>
+              <p>{{ a.summary }}</p>
+              <div class="hl-article-footer">
+                <span class="hl-author">✍️ {{ a.author }}</span>
+                <a href="#" class="hl-read-more">Read more →</a>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Ask a Pharmacist CTA -->
+<section class="hl-cta-banner">
+  <div class="container hl-cta-inner">
+    <div class="hl-cta-text">
+      <h2>Have a health question?</h2>
+      <p>Our pharmacists are available online and in-store to give you free, confidential advice on any health concern.</p>
+    </div>
+    <div class="hl-cta-actions">
+      <button class="btn btn-white">💬 Start live chat</button>
+      <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)">📞 Call us now</button>
+    </div>
+  </div>
+</section>

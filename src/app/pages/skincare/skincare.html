@@ -1,0 +1,112 @@
+<section class="page-hero sk-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <nav class="page-breadcrumb"><a href="/">Home</a><span>›</span><span>Skincare</span></nav>
+      <h1 class="page-hero-title">Skincare for Every Skin Type</h1>
+      <p class="page-hero-sub">Discover our curated range of dermatologist-recommended skincare. From daily moisturisers to targeted treatments — find what works for your skin.</p>
+      <div class="page-hero-actions">
+        <button class="btn btn-white">✨ Shop all skincare</button>
+        <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)">💆 Find my routine</button>
+      </div>
+    </div>
+    <div class="page-hero-stats">
+      <div class="page-stat"><strong>1,800+</strong><span>Products</span></div>
+      <div class="page-stat"><strong>50+</strong><span>Brands</span></div>
+      <div class="page-stat"><strong>Expert</strong><span>Advice</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="page-section page-section--white">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-subtitle">Find the right products for every step of your routine</p>
+      </div>
+    </div>
+    <div class="sk-categories-grid">
+      @for (cat of categories(); track cat.id) {
+        <button class="sk-cat-card" [style.background]="cat.color">
+          <span class="sk-cat-icon">{{ cat.icon }}</span>
+          <h4>{{ cat.name }}</h4>
+          <p>{{ cat.tip }}</p>
+        </button>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Routine Builder Banner -->
+<section class="sk-routine-banner">
+  <div class="container sk-routine-inner">
+    <div class="sk-routine-steps">
+      <div class="sk-routine-step"><span>🌅</span><strong>Morning</strong><p>Cleanse → Serum → Moisturise → SPF</p></div>
+      <div class="sk-routine-divider">vs</div>
+      <div class="sk-routine-step"><span>🌙</span><strong>Evening</strong><p>Cleanse → Toner → Treatment → Night cream</p></div>
+    </div>
+    <div class="sk-routine-cta">
+      <h3>Not sure where to start?</h3>
+      <p>Take our quick skin quiz and get a personalised routine recommendation.</p>
+      <button class="btn btn-primary">Take the skin quiz →</button>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="page-section page-section--gray">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">Featured Skincare Products</h2>
+        <p class="section-subtitle">Pharmacist-recommended picks for glowing skin</p>
+      </div>
+      <a href="#" class="page-view-all">View all →</a>
+    </div>
+    <div class="grid-4">
+      @for (p of products(); track p.id; let i = $index) {
+        <div class="pg-product-card" [style.animation-delay]="(i*50)+'ms'">
+          @if (p.badge) { <span class="pg-badge badge" [class]="'badge-'+p.badgeType">{{ p.badge }}</span> }
+          <button class="sk-wishlist" (click)="cart.toggleWishlist(p.id)">{{ cart.isWishlisted(p.id) ? '❤️' : '🤍' }}</button>
+          <div class="pg-product-img">{{ p.icon }}</div>
+          <div class="pg-product-info">
+            <p class="pg-product-brand">{{ p.brand }}</p>
+            <h3 class="pg-product-name">{{ p.name }}</h3>
+            <p class="pg-product-unit">{{ p.unit }}</p>
+            <div class="pg-stars">{{ stars(p.rating) }} <small style="color:var(--gray-600)">({{ p.reviews }})</small></div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:12px">
+              <span class="pg-product-price">€{{ p.price.toFixed(2) }}</span>
+              @if (p.originalPrice) { <span class="pg-product-orig">€{{ p.originalPrice.toFixed(2) }}</span> }
+            </div>
+            <button class="btn add-btn" [class.btn-success]="addedId()===p.id" [class.btn-primary]="addedId()!==p.id" (click)="addToCart(p)">
+              {{ addedId()===p.id ? '✅ Added!' : '🛒 Add to cart' }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Brands -->
+<section class="page-section page-section--white">
+  <div class="container">
+    <div class="page-section-header">
+      <div>
+        <h2 class="section-title">Top Skincare Brands</h2>
+        <p class="section-subtitle">Trusted names recommended by dermatologists and pharmacists</p>
+      </div>
+    </div>
+    <div class="sk-brands-grid">
+      @for (b of brands(); track b.name) {
+        <div class="sk-brand-card">
+          <div class="sk-brand-logo">{{ b.logo }}</div>
+          <h4>{{ b.name }}</h4>
+          <span class="badge badge-green">{{ b.tag }}</span>
+          <button class="btn btn-outline" style="font-size:13px;padding:8px 16px;margin-top:12px">Shop {{ b.name }}</button>
+        </div>
+      }
+    </div>
+  </div>
+</section>

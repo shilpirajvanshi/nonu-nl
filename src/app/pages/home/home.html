@@ -1,0 +1,287 @@
+<!-- Hero -->
+@if (banner(); as b) {
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="badge badge-green">{{ b.tag }}</span>
+        <h1 class="hero-title">{{ b.title }}</h1>
+        <p class="hero-subtitle">{{ b.subtitle }}</p>
+        <div class="hero-actions">
+          <a routerLink="/products" class="btn btn-white">{{ b.cta }} →</a>
+          <button class="btn btn-ghost">{{ b.ctaSecondary }}</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong>500K+</strong><span>Customers</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><strong>5,000+</strong><span>Products</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><strong>200+</strong><span>Pharmacies</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-emoji">{{ b.image }}</div>
+          <div class="hero-floating-tags">
+            <span>💊 Medicines</span>
+            <span>🧴 Skincare</span>
+            <span>🌿 Vitamins</span>
+          </div>
+        </div>
+        <div class="hero-pill pill-1">✅ Fast delivery</div>
+        <div class="hero-pill pill-2">🔒 Secure payment</div>
+        <div class="hero-pill pill-3">💬 Pharmacist advice</div>
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#ffffff"/>
+      </svg>
+    </div>
+  </section>
+}
+
+<!-- Promo Cards -->
+<section class="promo-section">
+  <div class="container promo-grid">
+    @for (card of promoCards(); track card.title) {
+      <div class="promo-card" [style.--card-color]="card.color">
+        <span class="promo-icon">{{ card.icon }}</span>
+        <div class="promo-text">
+          <h4>{{ card.title }}</h4>
+          <p>{{ card.description }}</p>
+        </div>
+        <button class="promo-cta">{{ card.cta }} →</button>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="section categories-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Product Categories</h2>
+        <p class="section-subtitle">Everything for your health in one place</p>
+      </div>
+      <a routerLink="/products" class="view-all">All categories →</a>
+    </div>
+    <div class="categories-grid">
+      @for (cat of categories(); track cat.id) {
+        <a class="category-card" routerLink="/products" [class.active]="activeCategory() === cat.id"
+          [style.background]="cat.color">
+          <span class="cat-icon">{{ cat.icon }}</span>
+          <h4>{{ cat.name }}</h4>
+          <p>{{ cat.count }}</p>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="section products-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Popular Products</h2>
+        <p class="section-subtitle">Our best-selling products right now</p>
+      </div>
+      <a routerLink="/products" class="view-all">All products →</a>
+    </div>
+    @if (loading()) {
+      <div class="products-grid">
+        @for (i of [1,2,3,4]; track i) {
+          <div class="skeleton-card">
+            <div class="skeleton skeleton-img"></div>
+            <div class="skeleton skeleton-line"></div>
+            <div class="skeleton skeleton-line short"></div>
+            <div class="skeleton skeleton-btn"></div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="products-grid">
+        @for (product of products().slice(0,8); track product.id; let i = $index) {
+          <div class="product-card" [style.animation-delay]="(i * 60) + 'ms'">
+            @if (product.badge) {
+              <span class="product-badge badge" [class]="'badge-' + product.badgeType">{{ product.badge }}</span>
+            }
+            <button class="wishlist-btn" (click)="cart.toggleWishlist(product.id)" [class.active]="cart.isWishlisted(product.id)">
+              {{ cart.isWishlisted(product.id) ? '❤️' : '🤍' }}
+            </button>
+            <div class="product-img">{{ product.icon }}</div>
+            <div class="product-info">
+              <p class="product-brand">{{ product.brand }}</p>
+              <h3 class="product-name">{{ product.name }}</h3>
+              <p class="product-unit">{{ product.unit }}</p>
+              <div class="product-rating">
+                <span class="stars">{{ stars(product.rating).join('') }}</span>
+                <span class="review-count">({{ product.reviews }})</span>
+              </div>
+              <div class="product-price">
+                <span class="price-current">€{{ product.price.toFixed(2) }}</span>
+                @if (product.originalPrice) {
+                  <span class="price-original">€{{ product.originalPrice.toFixed(2) }}</span>
+                }
+              </div>
+              <button class="btn btn-primary add-to-cart" (click)="cart.add(product)">
+                🛒 Add to cart
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Banner CTA -->
+<section class="banner-cta">
+  <div class="container banner-cta-inner">
+    <div class="banner-cta-content">
+      <span class="badge badge-green" style="margin-bottom:12px">Pharmacy service</span>
+      <h2>Repeat prescriptions made easy</h2>
+      <p>Upload your prescription and we'll take care of the rest. Your medication ready for collection or home delivery.</p>
+      <div class="banner-cta-actions">
+        <button class="btn btn-primary">Upload prescription</button>
+        <button class="btn btn-outline">More information</button>
+      </div>
+    </div>
+    <div class="banner-cta-visual">
+      <div class="cta-steps">
+        <div class="cta-step">📋<p>Upload prescription</p></div>
+        <div class="cta-arrow">→</div>
+        <div class="cta-step">✅<p>Verification</p></div>
+        <div class="cta-arrow">→</div>
+        <div class="cta-step">🚚<p>Delivery</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Health Tips -->
+<section class="section health-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Health Advice</h2>
+        <p class="section-subtitle">Articles and tips from our pharmacists</p>
+      </div>
+      <a href="#" class="view-all">All articles →</a>
+    </div>
+    <div class="health-grid">
+      @for (tip of healthTips(); track tip.id) {
+        <article class="health-card">
+          <div class="health-icon">{{ tip.icon }}</div>
+          <div class="health-content">
+            <div class="health-meta">
+              <span class="badge badge-green">{{ tip.category }}</span>
+              <span class="read-time">⏱ {{ tip.readTime }} read</span>
+            </div>
+            <h3>{{ tip.title }}</h3>
+            <p>{{ tip.summary }}</p>
+            <a href="#" class="read-more">Read more →</a>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Pharmacies -->
+<section class="section pharmacy-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Find a mypharmacy location</h2>
+        <p class="section-subtitle">200+ pharmacies across the Netherlands</p>
+      </div>
+    </div>
+    <div class="pharmacy-search">
+      <input type="text" placeholder="Enter your postcode or city..." class="pharmacy-input" />
+      <button class="btn btn-primary">🔍 Search</button>
+    </div>
+    <div class="pharmacy-grid">
+      @for (pharmacy of pharmacies(); track pharmacy.name) {
+        <div class="pharmacy-card">
+          <div class="pharmacy-header">
+            <div>
+              <h4>{{ pharmacy.name }}</h4>
+              <p>{{ pharmacy.address }}, {{ pharmacy.city }}</p>
+            </div>
+            <span class="open-badge" [class.closed]="!pharmacy.open">
+              {{ pharmacy.open ? '● Open' : '● Closed' }}
+            </span>
+          </div>
+          <div class="pharmacy-details">
+            <p>🕐 {{ pharmacy.hours }}</p>
+            <p>📞 {{ pharmacy.phone }}</p>
+          </div>
+          <div class="pharmacy-actions">
+            <button class="btn btn-outline" style="flex:1">Get directions</button>
+            <button class="btn btn-primary" style="flex:1">More info</button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section testimonials-section">
+  <div class="container">
+    <div class="section-header" style="text-align:center; display:block">
+      <h2 class="section-title">What our customers say</h2>
+      <p class="section-subtitle">Over 500,000 satisfied customers have gone before you</p>
+    </div>
+    <div class="testimonials-wrapper">
+      @for (t of testimonials(); track t.id; let i = $index) {
+        <div class="testimonial-card" [class.active]="currentTestimonial() === i">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"{{ t.text }}"</p>
+          <div class="testimonial-author">
+            <span class="author-avatar">{{ t.avatar }}</span>
+            <div>
+              <strong>{{ t.name }}</strong>
+              <span>{{ t.location }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="testimonial-dots">
+      @for (t of testimonials(); track t.id; let i = $index) {
+        <button class="dot" [class.active]="currentTestimonial() === i" (click)="setTestimonial(i)"></button>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter-section">
+  <div class="container newsletter-inner">
+    <div class="newsletter-content">
+      <h2>Stay up to date</h2>
+      <p>Receive the latest health advice, product news and exclusive offers in your inbox.</p>
+    </div>
+    @if (!newsletterSuccess()) {
+      <form class="newsletter-form" (submit)="submitNewsletter(); $event.preventDefault()">
+        <input
+          type="email"
+          placeholder="Your email address"
+          [value]="newsletterEmail()"
+          (input)="newsletterEmail.set($any($event.target).value)"
+          required
+        />
+        <button type="submit" class="btn btn-orange">Subscribe</button>
+      </form>
+      <p class="newsletter-disclaimer">🔒 We respect your privacy. No spam, unsubscribe anytime.</p>
+    } @else {
+      <div class="newsletter-success">
+        <span>✅</span>
+        <p>Thanks for subscribing! You'll receive our newsletter soon.</p>
+      </div>
+    }
+  </div>
+</section>

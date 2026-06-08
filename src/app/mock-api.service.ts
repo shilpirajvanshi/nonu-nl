@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, delay } from 'rxjs';
 
-export interface NavItem { label: string; icon: string; }
+export interface NavItem { label: string; icon: string; route?: string; }
 export interface Banner { tag: string; title: string; subtitle: string; cta: string; ctaSecondary: string; image: string; }
 export interface Category { id: number; name: string; icon: string; count: string; color: string; }
 export interface Product { id: number; name: string; brand: string; price: number; originalPrice?: number; unit: string; rating: number; reviews: number; badge?: string; badgeType?: string; icon: string; }
@@ -15,7 +15,7 @@ export class MockApiService {
 
   getNavItems(): Observable<NavItem[]> {
     return of([
-      { label: 'Products',     icon: '💊' },
+      { label: 'Products',     icon: '💊', route: '/products' },
       { label: 'Pharmacy',     icon: '🏥' },
       { label: 'Health',       icon: '❤️' },
       { label: 'Skincare',     icon: '✨' },
